@@ -30,6 +30,12 @@ export default class MathpadPlugin extends Plugin {
     ribbonIconEl: HTMLElement;
  
     async onload() {
+        // If this is full electron, bail out.
+        // We'll let real MathPad handle things.
+        if ('electron' in window) {
+            return;
+        }
+
         await this.loadSettings();
 
         this.registerView(MATHPAD_VIEW, (leaf) => new MathpadView(leaf, this));

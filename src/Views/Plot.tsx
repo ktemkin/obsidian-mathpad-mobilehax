@@ -1,6 +1,4 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import functionPlot, { Chart } from 'function-plot'
-import { FunctionPlotOptions, FunctionPlotDatum } from 'function-plot/dist/types';
 import { debounce } from 'obsidian';
 import PadScope from 'src/Math/PadScope';
 import { MathpadSettings } from 'src/MathpadSettings';
@@ -8,21 +6,21 @@ import { MathpadSettings } from 'src/MathpadSettings';
 //cfr: https://mauriciopoppe.github.io/function-plot/
 
 export interface FunctionPlotProps {
-    options?: FunctionPlotOptions,
-    onScaleChanged?: (options: FunctionPlotOptions) => void
+    options?: any,
+    onScaleChanged?: (options: any) => void
 }
 
 export const Plot: React.FC<FunctionPlotProps> =
     React.memo(({ options, onScaleChanged }:
         {
-            options: FunctionPlotOptions,
-            onScaleChanged: (options: FunctionPlotOptions) => void
+            options: any,
+            onScaleChanged: (options: any) => void
         }) => {
         const rootEl = useRef<HTMLDivElement>(null);
 
         const [state] = useState(options);
 
-        const handleScaleChanged = debounce(useCallback((options: FunctionPlotOptions)=>{
+        const handleScaleChanged = debounce(useCallback((options: any)=>{
             onScaleChanged && onScaleChanged(options);
         },[onScaleChanged]),300);
 
@@ -31,11 +29,6 @@ export const Plot: React.FC<FunctionPlotProps> =
                 if (rootEl.current) {
                     Object.assign(state, options);
                     state.target = rootEl.current;
-
-                    const chart: Chart = functionPlot(state);
-                    chart.on("all:zoom", (_event) => {
-                        handleScaleChanged(chart.options);
-                    });
                 }
             } catch (e) {
                 //
@@ -47,11 +40,11 @@ export const Plot: React.FC<FunctionPlotProps> =
 
 export default Plot;
 
-export function getPlotOptions(width: number, settings:MathpadSettings, padScope: PadScope) : FunctionPlotOptions {
+export function getPlotOptions(width: number, settings:MathpadSettings, padScope: PadScope) : any {
     
     const plotDerivatives = settings.plotDerivatives && (padScope.fn.length === padScope.dfn?.length);
     
-    const data:FunctionPlotDatum[] = padScope.fn.map((fn,i) => ({
+    const data:any[] = padScope.fn.map((fn,i) => ({
         graphType: 'polyline',
         fn: (scope: any) => fn(scope.x),
         // nSamples: 4096, 
@@ -60,7 +53,7 @@ export function getPlotOptions(width: number, settings:MathpadSettings, padScope
             updateOnMouseMove: true
         } : undefined
     }))
-    const dataPoints: FunctionPlotDatum[] = padScope.points.map((serie,i)=>(
+    const dataPoints: any[] = padScope.points.map((serie,i)=>(
         {
             graphType: 'scatter',
             fnType: 'points',
@@ -80,7 +73,7 @@ export function getPlotOptions(width: number, settings:MathpadSettings, padScope
     });
 }
 
-export function makePlot(cxt: any, padScope: PadScope, settings: MathpadSettings, handlePlotScaleChanhed?: (opts: FunctionPlotOptions) => void): React.ReactNode {
+export function makePlot(cxt: any, padScope: PadScope, settings: MathpadSettings, handlePlotScaleChanhed?: (opts: any) => void): React.ReactNode {
     return <div className="mathpad-plot">
         <Plot 
         options={getPlotOptions(cxt.width - 20, settings, padScope)}

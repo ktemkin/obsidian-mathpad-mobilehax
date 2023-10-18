@@ -6,7 +6,6 @@ import { EditorView, WidgetType } from "@codemirror/view";
 import { finishRenderMath, renderMath } from "obsidian";
 import { isNumber } from "util";
 import { getPlotOptions } from "src/Views/Plot";
-import functionPlot from "function-plot";
 
 export class ResultWidget extends WidgetType {
     padScope: PadScope;
@@ -78,7 +77,6 @@ export class ResultWidget extends WidgetType {
             this.padScope
         );
         options.target = div;
-        functionPlot(options);
         return div;
     }
 

@@ -10,7 +10,6 @@ import Code from "../icons/code.svg";
 import Input from "../icons/input.svg";
 import Question from "../icons/question.svg";
 import { SlotStack } from "src/Math/PadStack";
-import { FunctionPlotOptions } from "function-plot/dist/types";
 import Slider from "./Slider";
 import { getMathpadSettings } from "src/main";
 
@@ -84,11 +83,6 @@ const PadSlotView = ({ padSlot, onChanged, onClosed, onCopied, onClicked, select
         }
     }, [padSlot])
 
-    const handlePlotScaleChanhed = useCallback((opts: FunctionPlotOptions) => {
-        padSlot.plot.xDomain = opts.xAxis?.domain?.map(n => n.toPrecision(3));
-        padSlot.plot.yDomain = opts.yAxis?.domain?.map(n => n.toPrecision(3));
-    }, []);
-
     const onSliderChange = useCallback((value:number)=>{
         const newValue = `${padSlot.parseResult.name}${getMathpadSettings().declarationStr}slider(${value}, ${padSlot.range[0].valueOf()}, ${padSlot.range[1].valueOf()})`
         setState(state => ({ ...state, edit: false }))
@@ -129,9 +123,6 @@ const PadSlotView = ({ padSlot, onChanged, onClosed, onCopied, onClicked, select
 
                     }
                 </div>
-                {padSlot.plot && makePlot(cxt, padSlot, cxt.settings, handlePlotScaleChanhed)
-
-                }
 
             </div>
             <div className="slot-actions">

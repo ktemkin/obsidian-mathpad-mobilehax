@@ -4,9 +4,6 @@ require("nerdamer/Calculus");
 require("nerdamer/Extra");
 require("nerdamer/Solve");
 
-// for debugging purposes
-(global as any).nerdamer = nerdamer;
-
 
 const MY_VALIDATION_REGEX =
     /^[a-z_αAβBγΓδΔϵEζZηHθΘιIκKλΛμMνNξΞoOπΠρPσΣτTυϒϕΦχXψΨωΩ∞$][0-9a-z_αAβBγΓδΔϵEζZηHθΘιIκKλΛμMνNξΞoOπΠρPσΣτTυϒϕΦχXψΨωΩ$]*$/i;

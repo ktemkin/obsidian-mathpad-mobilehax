@@ -1,4 +1,3 @@
-import functionPlot from "function-plot";
 import { getMathpadSettings } from "src/main";
 import { getPlotOptions } from "src/Views/Plot";
 import PadScope from "src/Math/PadScope";
@@ -37,7 +36,6 @@ export class MathResult extends MarkdownRenderChild {
                 this.padScope
             );
             options.target = plotEl;
-            functionPlot(options);
             wrapper.appendChild(plotEl);
             this.containerEl.replaceWith(wrapper);
         }

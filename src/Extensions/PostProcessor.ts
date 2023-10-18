@@ -18,7 +18,7 @@ export const getPostPrcessor = (settings: MathpadSettings):MarkdownPostProcessor
             const code = codes.item(index) as HTMLElement;
             processCode(code, engine, context, settings);
         }
-    },100);
+    },100).run;
 }
 
 
